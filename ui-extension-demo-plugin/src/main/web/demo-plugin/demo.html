@@ -7,29 +7,39 @@
             var flexApp = parent.document.getElementById("flexApplication");
             if (flexApp) $httpProvider.defaults.headers.common.Authorization = flexApp.getBasicAuth();
         }).controller('RepoController', function ($http, $scope) {
+
             $http.get('/api/extension/test/demo').then(function (d) {
                 $scope.infrastructureCis = d.data.entity;
-            })
+            });
+
+            $scope.hasInfrastructure = function() {
+                return $scope.infrastructureCis != '';
+            };
         })
     </script>
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="main.css">
 </head>
-<body ng-app="myRepo" ng-controller="RepoController">
+<body ng-app="myRepo" ng-controller="RepoController" class="ng-cloak">
 
 
 <div class="content">
 
-    <h3>The current infrastructure</h3>
+    <h3 ng-if="hasInfrastructure()">The current infrastructure</h3>
+    <h3 ng-if="!hasInfrastructure()">Currently your infrastructure is empty</h3>
 
-    <div class="row header">
-        <div class="col-md-6">ID</div>
-        <div class="col-md-6">Type</div>
+    <div ng-if="hasInfrastructure()">
+        <div class="row header">
+            <div class="col-md-6">ID</div>
+            <div class="col-md-6">Type</div>
+        </div>
+        <div class="row" ng-repeat="ci in infrastructureCis">
+            <div class="col-md-6">{{ci.id}}</div>
+            <div class="col-md-6">{{ci.type}}</div>
+        </div>
     </div>
-    <div class="row" ng-repeat="ci in infrastructureCis">
-        <div class="col-md-6">{{ci.id}}</div>
-        <div class="col-md-6">{{ci.type}}</div>
-    </div>
+
+
 </div>
 
 </body>
