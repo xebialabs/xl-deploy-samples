@@ -1,0 +1,18 @@
+apply plugin: 'java'
+
+task xlExtensionJar(type: Jar) {
+
+  from (sourceSets.main.output.classesDir)
+  
+  from("src/main/python") {
+    exclude '**/*$py.class'
+  }
+  from("src/main/resources")
+
+  into("web") {
+    from("src/main/web")
+  }
+
+}
+
+build.dependsOn(xlExtensionJar)

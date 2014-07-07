@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script type="text/javascript" src="https://code.angularjs.org/1.2.9/angular.min.js"></script>
+    <script type="text/javascript">
+        angular.module('myRepo', []).config(function ($httpProvider) {
+            var flexApp = parent.document.getElementById("flexApplication");
+            if (flexApp) $httpProvider.defaults.headers.common.Authorization = flexApp.getBasicAuth();
+        }).controller('RepoController', function ($http, $scope) {
+            $http.get('/api/extension/test/demo').then(function (d) {
+                $scope.infrastructureCis = d.data.entity;
+            })
+        })
+    </script>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="main.css">
+</head>
+<body ng-app="myRepo" ng-controller="RepoController">
+
+
+<div class="content">
+
+    <h3>The current infrastructure</h3>
+
+    <div class="row header">
+        <div class="col-md-6">ID</div>
+        <div class="col-md-6">Type</div>
+    </div>
+    <div class="row" ng-repeat="ci in infrastructureCis">
+        <div class="col-md-6">{{ci.id}}</div>
+        <div class="col-md-6">{{ci.type}}</div>
+    </div>
+</div>
+
+</body>
+</html>
