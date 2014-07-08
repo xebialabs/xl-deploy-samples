@@ -1,0 +1,32 @@
+allprojects { p ->
+  group = "com.xebialabs.xldeploy.samples"
+  version = "1.0.0"
+}
+
+subprojects.each { p ->
+  p.apply plugin: 'java'
+  p.apply plugin: 'maven'
+}
+
+allprojects {
+  repositories {
+
+    if (!rootProject.hasProperty('offline')) {
+      ["releases", "alphas", "thirdparty", "hidden-thirdparty"].each { r ->
+        maven {
+          credentials {
+            username nexusUserName
+            password nexusPassword
+          }
+          url "${nexusBaseUrl}/repositories/${r}"
+        }
+      }
+      maven {
+        url "${nexusBaseUrl}/groups/public"
+      }
+    }
+    // Last search local.
+    mavenLocal()
+  }
+}
+
