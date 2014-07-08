@@ -1,9 +1,10 @@
-//apply plugin: 'deployit-artifact'
-apply plugin: 'java'
+configurations {
+  distribution
+}
 
 task xlExtensionJar(type: Jar) {
 
-  from (sourceSets.main.output.classesDir)
+  from(sourceSets.main.output.classesDir)
 
   from("src/main/python") {
     exclude '**/*$py.class'
@@ -20,21 +21,29 @@ task buildExtensionDist(type: Zip, overwrite: true, dependsOn: xlExtensionJar) {
   group = 'Archive'
   description = 'Build UI Extensions distribution ZIP'
 
-  baseName = 'xl-deploy-ui-extension-demo-plugin-${project.version}'
+  baseName = "xl-deploy-ui-extension-demo-plugin"
   from 'build/libs'
 
 }
 
 build.dependsOn(buildExtensionDist)
 
-//uploadArchives {
-//  repositories.mavenDeployer {
-//    addFilter('xl-deploy') { artifact, file ->
-//      artifact.name == 'xl-deploy'
-//    }
-//  }
-//}
-//
-//artifacts {
-//  archives buildExtensionDist
-//}
+uploadDistribution {
+  repositories {
+    mavenDeployer {
+      repository(url: "${project.nexusBaseUrl}/repositories/releases") {
+        authentication(userName: "${project.nexusUserName}", password: "${project.nexusPassword}")
+      }
+
+      snapshotRepository(url: "${project.nexusBaseUrl}/repositories/snapshots") {
+        authentication(userName: "${project.nexusUserName}", password: "${project.nexusPassword}")
+      }
+    }
+  }
+}
+
+artifacts {
+  distribution buildExtensionDist
+}
+
+task publish(dependsOn: [install, uploadDistribution])
