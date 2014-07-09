@@ -13,20 +13,29 @@
             });
 
             $scope.hasInfrastructure = function() {
-                return $scope.infrastructureCis != '';
+                return !(typeof $scope.infrastructureCis == "undefined" || $scope.infrastructureCis == '');
             };
-        })
+        });
+
+        function refreshIframe() {
+            document.getElementsByTagName("iframe").contentWindow.location.reload(true);
+        }
     </script>
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="main.css">
 </head>
 <body ng-app="myRepo" ng-controller="RepoController" class="ng-cloak">
-
+<a href="#" onclick="location.reload();" class="reload-icon"><img src="refresh.png" /></a>
 
 <div class="content">
 
-    <h3 ng-if="hasInfrastructure()">The current infrastructure</h3>
-    <h3 ng-if="!hasInfrastructure()">Currently your infrastructure is empty</h3>
+    <h3 ng-if="hasInfrastructure()">The current Infrastructure</h3>
+    <h3 ng-if="!hasInfrastructure()">Currently your Infrastructure is empty</h3>
+
+    <div ng-if="!hasInfrastructure()">
+        Please create some CIs inside Infrastructure folder and click "Refresh" icon.
+    </div>
+
 
     <div ng-if="hasInfrastructure()">
         <div class="row header">
