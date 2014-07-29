@@ -3,7 +3,9 @@
            xmlns="http://www.xebialabs.com/deployit/endpoints"
            xsi:schemaLocation="http://www.xebialabs.com/deployit/endpoints endpoints.xsd">
 
-    <endpoint path="/test/demo" method="GET" script="demo.py" />
+    <!--REST endpoints can be specified here. Each endpoint must be backed by a Jython script, where the standard XL Deploy services
+	 are automatically injected in Jython context by XL Deploy-->
+	<endpoint path="/test/demo" method="GET" script="demo.py" />
 
 </endpoints>
 
