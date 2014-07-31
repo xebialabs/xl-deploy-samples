@@ -1,12 +1,9 @@
-Build the project:
-```
-gradle clean build
-```
+You must build the sample with Gradle. To do so:
 
-Copy the extension to the plugins folder of your XLD installation:
-```
-cp ./build/libs/ui-extension-demo-*-plugin.jar ~/my/xld/location/plugins
-```
+1. At a command prompt, navigate to the root folder of the sample.
+2. Execute the Gradle command `gradle clean build`. This creates the file `./build/libs/ui-extension-demo-*-plugin.jar`.
+3. Copy `ui-extension-demo-plugin.jar` to `XLDEPLOY_SERVER_HOME/plugins`.
+
 <p>
 This sample is intended to show how to develop an extension UI plugins by means of AngularJS and Jython scripts.<br/>
 This implementation shows the report of all the CIs that are located inside Infrastructure.<br/>
