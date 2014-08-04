@@ -2,52 +2,40 @@
 <html>
 <head>
     <script type="text/javascript" src="https://code.angularjs.org/1.2.9/angular.min.js"></script>
-    <script type="text/javascript">
-        angular.module('myRepo', []).config(function ($httpProvider) {
-            var flexApp = parent.document.getElementById("flexApplication");
-            if (flexApp) $httpProvider.defaults.headers.common.Authorization = flexApp.getBasicAuth();
-        }).controller('RepoController', function ($http, $scope) {
+    <script type="text/javascript" src="./main.js"></script>
 
-            $http.get('/api/extension/test/demo').then(function (d) {
-                $scope.infrastructureCis = d.data.entity;
-            });
-
-            $scope.hasInfrastructure = function() {
-                return !(typeof $scope.infrastructureCis == "undefined" || $scope.infrastructureCis == '');
-            };
-        });
-
-        function refreshIframe() {
-            document.getElementsByTagName("iframe").contentWindow.location.reload(true);
-        }
-    </script>
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="main.css">
 </head>
 <body ng-app="myRepo" ng-controller="RepoController" class="ng-cloak">
-<a href="#" onclick="location.reload();" class="reload-icon"><img src="refresh.png" /></a>
-
 <div class="content">
 
-    <h3 ng-if="hasInfrastructure()">The current Infrastructure</h3>
-    <h3 ng-if="!hasInfrastructure()">Currently your Infrastructure is empty</h3>
 
-    <div ng-if="!hasInfrastructure()">
-        Please create some CIs inside Infrastructure folder and click "Refresh" icon.
-    </div>
+    <h3>
+        <a ng-click="loadCis()" href="#" class="btn btn-primary btn-sm"><i class="glyphicon glyphicon-refresh"></i> Reload CIs</a>
+        The current root
+
+        <select ng-model="activeRoot" ng-change="loadCis()">
+            <option>Applications</option>
+            <option>Environments</option>
+            <option>Infrastructure</option>
+            <option>Configuration</option>
+        </select>
+    </h3>
 
 
-    <div ng-if="hasInfrastructure()">
-        <div class="row header">
-            <div class="col-md-6">ID</div>
-            <div class="col-md-6">Type</div>
-        </div>
-        <div class="row" ng-repeat="ci in infrastructureCis">
-            <div class="col-md-6">{{ci.id}}</div>
-            <div class="col-md-6">{{ci.type}}</div>
-        </div>
-    </div>
+    <h4 ng-if="resultCis && !resultCis.length"><i>...is currently empty. Please create some CIs folder and click reload.</i></h4>
 
+    <table ng-if="resultCis.length" class="table table-striped">
+        <tr>
+            <th>ID</th>
+            <th>Type</th>
+        </tr>
+        <tr ng-repeat="ci in resultCis">
+            <td>{{ci.id}}</td>
+            <td>{{ci.type}}</td>
+        </tr>
+    </table>
 
 </div>
 

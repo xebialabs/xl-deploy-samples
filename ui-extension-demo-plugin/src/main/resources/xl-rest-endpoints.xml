@@ -5,7 +5,9 @@
 
     <!--REST endpoints can be specified here. Each endpoint must be backed by a Jython script, where the standard XL Deploy services
 	 are automatically injected in Jython context by XL Deploy-->
-	<endpoint path="/test/demo" method="GET" script="ui_extension_demo/demo.py" />
+
+    <!-- Check src/main/python/cis.py to see what this endpoint does -->
+    <endpoint path="/test/cis" method="GET" script="ui_extension_demo/cis.py" />
 
 </endpoints>
 
