@@ -6,7 +6,10 @@
 # services, refer to server-extension api section on http://doc.xebialabs.com/
 ###################################################################################
 
-ci_ids = repositoryService.query(None, None, "Infrastructure", None, None, None, 0, -1)
+from ui_extension_demo.modules.repo import RepositoryHelper
+
+repository_helper = RepositoryHelper(repositoryService)
+ci_ids = repository_helper.get_all_infrastucture_cis()
 
 response.entity = map(lambda ci_id: repositoryService.read(ci_id.id), ci_ids)
 
