@@ -2,7 +2,7 @@ configurations {
   distribution
 }
 
-task xlExtensionJar(type: Jar) {
+jar {
 
   from(sourceSets.main.output.classesDir)
 
@@ -17,7 +17,7 @@ task xlExtensionJar(type: Jar) {
 
 }
 
-task buildExtensionDist(type: Zip, overwrite: true, dependsOn: xlExtensionJar) {
+task buildExtensionDist(type: Zip, overwrite: true, dependsOn: jar) {
   group = 'Archive'
   description = 'Build UI Extensions distribution ZIP'
 
