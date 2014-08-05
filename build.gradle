@@ -3,7 +3,7 @@ apply plugin: 'idea'
 
 allprojects { p ->
   group = "com.xebialabs.xldeploy.samples"
-  version = "1.0.3"
+  version = "1.0.4-SNAPSHOT"
 }
 
 subprojects.each { p ->
