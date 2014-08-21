@@ -3,7 +3,8 @@
            xmlns="http://www.xebialabs.com/deployit/synthetic"
            xsi:schemaLocation="http://www.xebialabs.com/deployit/synthetic synthetic.xsd">
 
-          <type type="example.Server" extends="overthere.BaseHostContainer" description="Example server">
+          <type type="example.Server" extends="udm.BaseContainer" description="Example server">
+            <property name="host" kind="ci" referenced-type="overthere.Host" as-containment="true"/>
             <property name="home" description="Home directory for the server"/>
           </type>
 
@@ -24,7 +25,7 @@
           </type>
 
           <type-modification type="udm.DeployedApplication">
-               <property name="waitTime" kind="integer" label="Time in seconds to wait for starting the deployment" required="false"/>
+            <property name="waitTime" kind="integer" label="Time in seconds to wait for starting the deployment" required="false"/>
           </type-modification>
            
 </synthetic>
