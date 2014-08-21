@@ -1,0 +1,104 @@
+<?xml version="1.0"?>
+<rules xmlns="http://www.xebialabs.com/xl-deploy/xl-rules">
+
+    <rule name="example.DeployedApplication.wait" scope="pre-plan">
+        <conditions>
+            <expression>specification.deployedOrPreviousApplication.waitTime is not None</expression>
+        </conditions>
+        <steps>
+            <wait>
+                <order>10</order>
+                <description expression="true">"Waiting %i seconds before starting the deployment" % specification.deployedOrPreviousApplication.waitTime</description>
+                <seconds expression="true">specification.deployedOrPreviousApplication.waitTime</seconds>
+            </wait>
+        </steps>
+    </rule>
+
+
+    <rule name="example.ArtifactDeployed.CREATE_MODIFY" scope="deployed">
+        <conditions>
+            <type>example.ArtifactDeployed</type>
+            <operation>CREATE</operation>
+            <operation>MODIFY</operation>
+        </conditions>
+        <steps>
+    		<os-script>
+    			<script>scripts/deploy-artifact</script>
+    		</os-script>
+    	</steps>
+    </rule>
+    <rule name="example.ArtifactDeployed.DESTROY" scope="deployed">
+        <conditions>
+            <type>example.ArtifactDeployed</type>
+            <operation>DESTROY</operation>
+        </conditions>
+        <steps>
+            <os-script>
+                <script>scripts/undeploy-artifact</script>
+            </os-script>
+        </steps>
+    </rule>
+
+
+    <rule name="example.ResourceDeployed.CREATE_MODIFY" scope="deployed">
+        <conditions>
+            <type>example.ResourceDeployed</type>
+            <operation>CREATE</operation>
+            <operation>MODIFY</operation>
+        </conditions>
+        <steps>
+            <upload>
+                <order>65</order>
+                <target-path expression="true">"%s/resources/%s" % (deployed.container.home, deployed.file.name)</target-path>
+            </upload>
+    	</steps>
+    </rule>
+    <rule name="example.ResourceDeployed.DESTROY" scope="deployed">
+        <conditions>
+            <type>example.ResourceDeployed</type>
+            <operation>DESTROY</operation>
+        </conditions>
+        <steps>
+            <delete>
+                <order>35</order>
+                <target-path expression="true">"%s/resources/%s" % (deployed.container.home, deployed.file.name)</target-path>
+            </delete>
+        </steps>
+    </rule>
+
+
+    <rule name="example.DatasourceDeployed.CREATE_MODIFY" scope="deployed">
+        <conditions>
+            <type>example.DatasourceDeployed</type>
+            <operation>CREATE</operation>
+            <operation>MODIFY</operation>
+        </conditions>
+        <steps>
+            <template>
+                <target-path expression="true">"%s/conf/%s" % (deployed.container.home, deployed.name)</target-path>
+                <template-path>templates/datasource.ftl</template-path>
+                <freemarker-context>
+                    <prop>myProp</prop>
+                </freemarker-context>
+            </template>
+    	</steps>
+    </rule>
+    <rule name="example.DatasourceDeployed.DESTROY" scope="deployed">
+        <conditions>
+            <type>example.DatasourceDeployed</type>
+            <operation>DESTROY</operation>
+        </conditions>
+        <steps>
+            <delete>
+                <target-path expression="true">"%s/conf/%s" % (deployed.container.home, deployed.name)</target-path>
+            </delete>
+        </steps>
+    </rule>
+
+
+    <rule name="example.Server.startStop" scope="plan">
+        <planning-script>planning/start-stop-server.py</planning-script>
+    </rule>
+
+
+</rules>

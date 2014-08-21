@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<udm.DeploymentPackage version="1.0" application="RuleApp">
+
+  <deployables>
+    <example.Artifact name="myArtifact" file="myArtifact/PetClinic-1.0.ear" />
+
+    <example.Datasource name="myDatasource">
+      <datasourceName>datasourceName</datasourceName>
+    </example.Datasource>
+
+    <example.Resource name="myResource" file="myResource/readme.txt" />
+
+  </deployables>
+
+</udm.DeploymentPackage>

@@ -5,36 +5,24 @@
  *
  */
 
-
 configurations {
   distribution
 }
 
 jar {
-
-  from(sourceSets.main.output.classesDir)
-
-  from("src/main/python") {
-    exclude '**/*$py.class'
-  }
-  from("src/main/resources")
-
-  into("web") {
-    from("src/main/web")
-  }
-
+  from("src")
 }
 
-task buildExtensionDist(type: Zip, overwrite: true, dependsOn: jar) {
+task buildRulesDist(type: Zip, overwrite: true, dependsOn: jar) {
   group = 'Archive'
-  description = 'Build UI Extensions distribution ZIP'
+  description = 'Build rules distribution ZIP'
 
-  baseName = "xl-deploy-ui-extension-demo-plugin"
+  baseName = "xl-deploy-rules-demo-plugin"
   from 'build/libs'
 
 }
 
-build.dependsOn(buildExtensionDist)
+build.dependsOn(buildRulesDist)
 
 uploadDistribution {
   repositories {
@@ -51,7 +39,7 @@ uploadDistribution {
 }
 
 artifacts {
-  distribution buildExtensionDist
+  distribution buildRulesDist
 }
 
-task publish(dependsOn: [install, uploadDistribution])
+task (dependsOn: [install, uploadDistribution])

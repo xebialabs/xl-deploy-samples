@@ -1,5 +1,11 @@
-apply plugin: 'idea'
+/**********************
+ *
+ *  This build file contains script used by Xebialabs to distribute the example packages and code.
+ *  It is not part of the examples and you are not required to use or understand it.
+ *
+ */
 
+apply plugin: 'idea'
 
 allprojects { p ->
   group = "com.xebialabs.xldeploy.samples"

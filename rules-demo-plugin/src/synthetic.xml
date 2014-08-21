@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<synthetic xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns="http://www.xebialabs.com/deployit/synthetic"
+           xsi:schemaLocation="http://www.xebialabs.com/deployit/synthetic synthetic.xsd">
+
+          <type type="example.Server" extends="overthere.BaseHostContainer" description="Example server">
+            <property name="home" description="Home directory for the server"/>
+          </type>
+
+          <type type="example.ArtifactDeployed" extends="udm.BaseDeployedArtifact" deployable-type="example.Artifact"
+            container-type="example.Server" description="Artifact that can be deployed to an example server">
+            <generate-deployable type="example.Artifact" extends="udm.BaseDeployableFileArtifact"/>
+          </type>
+
+          <type type="example.ResourceDeployed" extends="udm.BaseDeployedArtifact" deployable-type="example.Resource"
+            container-type="example.Server" description="Resource that can be deployed to an example server">
+            <generate-deployable type="example.Resource" extends="udm.BaseDeployableFileArtifact"/>
+          </type>
+
+          <type type="example.DatasourceDeployed" extends="udm.BaseDeployed" deployable-type="example.Datasource"
+            container-type="example.Server" description="Datasource that can be deployed to an example server">
+            <generate-deployable type="example.Datasource" extends="udm.BaseDeployable"/>
+            <property name="datasourceName" required="false"/>
+          </type>
+
+          <type-modification type="udm.DeployedApplication">
+               <property name="waitTime" kind="integer" label="Time in seconds to wait for starting the deployment" required="false"/>
+          </type-modification>
+           
+</synthetic>
