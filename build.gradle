@@ -15,6 +15,20 @@ allprojects { p ->
 subprojects.each { p ->
   p.apply plugin: 'java'
   p.apply plugin: 'maven'
+
+  p.uploadArchives {
+    repositories {
+      mavenDeployer {
+        repository(url: "${project.nexusBaseUrl}/repositories/releases") {
+          authentication(userName: "${project.nexusUserName}", password: "${project.nexusPassword}")
+        }
+
+        snapshotRepository(url: "${project.nexusBaseUrl}/repositories/snapshots") {
+          authentication(userName: "${project.nexusUserName}", password: "${project.nexusPassword}")
+        }
+      }
+    }
+  }
 }
 
 allprojects {

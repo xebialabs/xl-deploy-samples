@@ -1,8 +1,8 @@
 You must build the sample with Gradle. To do so:
 
 1. At a command prompt, navigate to the root folder of the sample.
-2. Execute the Gradle command `gradle clean build`. This creates the file `./build/libs/ui-extension-demo-*-plugin.jar`.
-3. Copy `ui-extension-demo-plugin.jar` to `XLDEPLOY_SERVER_HOME/plugins`.
+2. Execute the Gradle command `gradle clean build`. This creates the file `./build/libs/ui-extension-demo-plugin-*.jar`.
+3. Copy `ui-extension-demo-plugin-*.jar` to `XLDEPLOY_SERVER_HOME/plugins`.
 
 
 This sample is intended to show how to develop an extension UI plugins by means of AngularJS and Jython scripts.
