@@ -97,7 +97,7 @@
 
 
     <rule name="example.Server.startStop" scope="plan">
-        <planning-script>planning/start-stop-server.py</planning-script>
+        <planning-script-path>planning/start-stop-server.py</planning-script-path>
     </rule>
 
 
