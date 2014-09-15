@@ -29,6 +29,10 @@ subprojects.each { p ->
       }
     }
   }
+
+  p.tasks.jar {
+    exclude "**/*.pyc"
+  }
 }
 
 allprojects {

@@ -47,3 +47,6 @@ integration/data/.cache
 *.rtw
 
 *.swp
+
+# IntelliJ python compiler
+*.pyc
