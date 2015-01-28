@@ -61,7 +61,7 @@
         <steps>
             <delete>
                 <order>35</order>
-                <target-path expression="true">"%s/resources/%s" % (deployed.container.home, deployed.file.name)</target-path>
+                <target-path expression="true">"%s/resources/%s" % (previousDeployed.container.home, previousDeployed.file.name)</target-path>
             </delete>
         </steps>
     </rule>
@@ -90,7 +90,7 @@
         </conditions>
         <steps>
             <delete>
-                <target-path expression="true">"%s/conf/%s" % (deployed.container.home, deployed.name)</target-path>
+                <target-path expression="true">"%s/conf/%s" % (previousDeployed.container.home, previousDeployed.name)</target-path>
             </delete>
         </steps>
     </rule>
