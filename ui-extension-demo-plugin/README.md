@@ -24,4 +24,4 @@ Here is a brief description of what some of the contained files does:
 
 ### Related articles
 
-* <a href="https://support.xebialabs.com/entries/44603695-Writing-Jython-scripts-for-XL-Deploy">Writing Jython scripts for XL Deploy</a>
+* <a href="https://docs.xebialabs.com/xl-deploy/how-to/writing-jython-scripts-for-xl-deploy.html">Writing Jython scripts for XL Deploy</a>
